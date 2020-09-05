@@ -148,7 +148,6 @@ if >/dev/null 2>&1 ls --color -d /; then # GNU ls, probably
     # contents. (List DIRectories)
     alias ldir='ls -l --directory'
     # sort by extension (List EXTensions)
-    # TODO: possible on BSD?
     alias lext='ls -lX'
 elif >/dev/null 2>&1 gls --color -d /; then # GNU ls is on the system as "gls"
     alias ls='LC_ALL=C gls -h --group-directories-first --color=auto'
@@ -397,7 +396,6 @@ zle -N zle-keymap-select
 host_prompt="%(!.%F{003}%K{001}.%F{000}%K{003}) %n@%m "
 dir_prompt="%F{000}%K{004} %~ "
 PROMPT=$'\n'"%F{\$vi_colour}┌─$host_prompt$dir_prompt%k\$vcs_info_msg_0_"$'\n%F{\$vi_colour}└─%f '
-# TODO: doesn't work
 PROMPT2=".. "
 RPROMPT2="%K{cyan} %^ %k"
 
