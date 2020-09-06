@@ -57,6 +57,11 @@ export KEYTIMEOUT=5
 
 # {{{ ALIASES AND FUNCTIONS
 
+# try to populate $LS_COLORS.
+if [ -z "$LS_COLORS" ] && 2>&1 command -v dircolors; then
+    eval "$(dircolors)"
+fi
+
 # global aliases. Whenever you have the unescaped string ... as an argument to a
 # command, it expands to ../..
 alias -g ...='../..'
