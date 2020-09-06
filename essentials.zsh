@@ -452,7 +452,7 @@ zstyle ':completion:*' list-suffixes true
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' substitute 1
-zstyle :compinstall filename "$ZDOTDIR/zshrc"
+zstyle :compinstall filename "${ZDOTDIR:-$HOME}/.zshrc"
 
 # Display red dots whilst waiting for completion.
 function expand-or-complete-with-dots() {
