@@ -58,7 +58,7 @@ export KEYTIMEOUT=5
 # {{{ ALIASES AND FUNCTIONS
 
 # try to populate $LS_COLORS.
-if [ -z "$LS_COLORS" ] && 2>&1 command -v dircolors; then
+if [ -z "$LS_COLORS" ] && 2>&1 >/dev/null command -v dircolors; then
     eval "$(dircolors)"
 fi
 
@@ -73,7 +73,9 @@ alias d='dirs -v | head -10'
 # Make the "help" command both exist and be more bash-like and useful. `help` is
 # like `man` but more powerful. You can do eg "help autoload" if you don't know
 # what autoload is.
-unalias run-help
+if 2>&1 >/dev/null alias run-help; then
+    unalias run-help
+fi
 autoload -Uz run-help
 alias help='run-help'
 
