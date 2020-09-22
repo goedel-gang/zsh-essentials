@@ -526,7 +526,7 @@ setopt pushd_silent
 setopt pushd_to_home
 
 # use basically unlimited history
-export HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
 
