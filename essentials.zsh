@@ -203,6 +203,7 @@ alias view='vim -R'
 
 alias viz='"${EDITOR:-vim}" "${ZSHRC:-$HOME}/.zshrc"'
 alias viv='"${EDITOR:-vim}" "$HOME/.vim/vimrc"'
+alias vig='"${EDITOR:-vim}" "$HOME/.gitconfig"'
 
 # display my timetable for school using elinks
 alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
