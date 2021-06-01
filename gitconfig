@@ -1,0 +1,75 @@
+# vim: noet cms=#%s ft=gitconfig
+
+#    ____  .__   __
+#   / ___\ |__|_/  |_
+#  / /_/  >|  |\   __\
+#  \___  / |  | |  |
+# /_____/  |__| |__|
+# FIGMENTIZE: git
+
+# This is a file with some global configurations for Git. The usual way to
+# change the options here is to use $ git config, but it's also fine to just
+# edit by hand.
+
+# If this file breaks, git can refuse to run due to "bad config", so be wary of
+# that if you're hacking around in here.
+
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[diff]
+	tool = vimdiff
+	wsErrorHighlight = all
+[core]
+	excludesfile = ~/.gitignore
+# Git aliases. See also some longer custom git subcommands in ~/bin/git-*
+# These aren't all about convenience - sometimes I just find it hard to remember
+# obscure names for Git commands, so I have aids like "unstage" for
+# reset HEAD --.
+[alias]
+	c = "commit -v"
+	ca = "commit -v --all"
+	cam = "commit -v --amend --reset-author"
+	caam = "commit -v --all --amend --reset-author"
+	co = "checkout"
+	# alias to set some options, and also if you want to pass further options to
+	# status. However if you just want to run git status (with default
+	# flags), use "g" or "cfg" as appropriate.
+	st = "status --show-stash"
+	d = "diff --ignore-submodules HEAD"
+	dl =  "diff --ignore-submodules HEAD --compact-summary"
+	# consistent with the existence of `git rm`, `git mv`, etc
+	ls = "ls-files"
+	ll = "log --stat"
+	lu = "log -u"
+	lo = "log --oneline"
+	lg = "log --oneline --graph"
+	lga = "log --oneline --graph --all"
+	a = "add"
+	aa = "add --all"
+	au = "add --update"
+	pushpushpush = "!while ! git push \"$@\"; do sleep 10; done #"
+	# this is an aliases that expands to a shell command. You can use $1 etc
+	# inside the command and then finish the command with a # to ignore the
+	# supplied arguments.
+	grephistory = "!git rev-list --all | xargs git grep"
+	# git is surprisingly clever here - the git ls-files knows to use the bare
+	# repository when it's cfg.
+	sm = "submodule"
+	gud = "!echo scrub #"
+	# https://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git
+	mkempty = "!true | git mktree | xargs git commit-tree | xargs git tag empty #"
+	du = "!git grep -lz '' | xargs -0 du -sbhc | sort -h #"
+	sm-du = "!git ls-files -z | xargs -0 du -sbhc | sort -h #"
+	# to display or filter git aliases, looking for some regex. quite useful if
+	# you have a complex alias for something but you can't remember the name,
+	# but you know roughly the subject it's in. Can also be used to show what
+	# aliases do if you want to use them yourself.
+	al = "!git config --get-regexp '^alias' | sed 's/^alias\\.//' | grep -i --color=auto \"$1\" #"
+	aln = "!git config --get-regexp '^alias' | sed 's/^alias\\.//' | grep -i --color=auto \"\\\\b$1\\\\b\" #"
+	edit = "!\"${EDITOR:-vim}\" \"$HOME/.gitconfig\""
+[init]
+	# :)
+	defaultBranch = main
+[pull]
+	ff = only
