@@ -20,7 +20,14 @@
 # start zsh from all over my system. Advanced users may wish to distribute parts
 # of this file over zprofile, zshenv, profile, xinitrc, xprofile, etc.
 
+# OVERRIDE_TERM=${OVERRIDE_TERM:-1}
+# OVERRIDE_COMPINIT=${OVERRIDE_COMPINIT:-1}
+
 # {{{ EXPORTS
+
+if [ -n "$OVERRIDE_TERM" ]; then
+    export TERM=xterm-256color
+fi
 
 # set all of these default-y programs
 
@@ -194,6 +201,9 @@ alias vi=vim
 # so I get my own vimrc when I use view
 alias view='vim -R'
 
+alias viz='"${EDITOR:-vim}" "${ZSHRC:-$HOME}/.zshrc"'
+alias viv='"${EDITOR:-vim}" "$HOME/.vim/vimrc"'
+
 # display my timetable for school using elinks
 alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 
@@ -366,11 +376,11 @@ precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 # need to use %%b for bold off
 zstyle ':vcs_info:*' actionformats \
-    '%K{002}%F{000} (%s)-[%b|%a]%u%c %f%k'
+    '%K{002}%F{000} (%s)-[%b|%a] %u%c%f%k'
 zstyle ':vcs_info:*' formats \
-    '%K{002}%F{000} (%s)-[%b]%u%c %f%k'
-zstyle ':vcs_info:*' stagedstr "*"
-zstyle ':vcs_info:*' unstagedstr "+"
+    '%K{002}%F{000} (%s)-[%b] %u%c%f%k'
+zstyle ':vcs_info:*' stagedstr "%K{003}*%K{002}"
+zstyle ':vcs_info:*' unstagedstr "%K{001}+%K{002}"
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b:%r'
 # don't waste time on VCS that nobody uses
 zstyle ':vcs_info:*' enable git cvs svn hg
@@ -411,7 +421,11 @@ RPROMPT2="%K{cyan} %^ %k"
 # {{{ COMPLETION
 
 autoload -Uz compinit
-compinit
+if [ -n "$OVERRIDE_COMPINIT" ]; then
+    compinit -u
+else
+    compinit
+fi
 
 # make the function g (defined earlier) complete like git
 # https://stackoverflow.com/questions/4221239/zsh-use-completions-for-command-x-when-i-type-command-y
